@@ -36,7 +36,7 @@ public class TDoctor {
 	}
 	
 	@OneToMany(mappedBy = "doctor")
-	Set<TReminder> reminder;
+	Set<TDoctorPatient> mapping;
 	
 	
 }

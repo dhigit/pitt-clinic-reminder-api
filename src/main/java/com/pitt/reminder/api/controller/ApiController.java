@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pitt.reminder.api.model.TReminder;
-import com.pitt.reminder.api.repo.TReminderRepo;
+import com.pitt.reminder.api.model.TDoctorPatient;
+import com.pitt.reminder.api.repo.DoctorPatientRepo;
 
 
 @RestController
@@ -19,15 +19,15 @@ import com.pitt.reminder.api.repo.TReminderRepo;
 public class ApiController {
 
 	@Autowired
-	TReminderRepo reminderRepo;
+	DoctorPatientRepo reminderRepo;
 	
-	@GetMapping("/api/reminders")
-	public List<TReminder> getAllReminder() {
+	@GetMapping("/api/patients")
+	public List<TDoctorPatient> getPatients() {
 		return reminderRepo.findAll();
 	}
 	
-	@GetMapping("/api/reminders/{rid}")
-	public Optional<TReminder> getReminderById(@PathVariable("rid")  int rid) {
-		return reminderRepo.findById(rid);
+	@GetMapping("/api/patients/{dpid}")
+	public Optional<TDoctorPatient> getDoctorPatientById(@PathVariable("dpid")  int dpid) {
+		return reminderRepo.findById(dpid);
 	}
 }

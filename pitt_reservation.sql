@@ -30,6 +30,25 @@ CREATE TABLE `tdoctor` (
 
 insert  into `tdoctor`(`doctor_id`,`doctor_name`) values (1,'adi'),(2,'budi'),(3,'caca');
 
+/*Table structure for table `tdoctorpatient` */
+
+DROP TABLE IF EXISTS `tdoctorpatient`;
+
+CREATE TABLE `tdoctorpatient` (
+  `dpid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(11) unsigned DEFAULT NULL,
+  `doctor_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`dpid`),
+  KEY `patientId` (`patient_id`),
+  KEY `doctorId` (`doctor_id`),
+  CONSTRAINT `tdoctorpatient_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `tpatient` (`patient_id`),
+  CONSTRAINT `tdoctorpatient_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `tdoctor` (`doctor_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tdoctorpatient` */
+
+insert  into `tdoctorpatient`(`dpid`,`patient_id`,`doctor_id`) values (1,1,1),(2,2,1),(3,3,2);
+
 /*Table structure for table `tpatient` */
 
 DROP TABLE IF EXISTS `tpatient`;
@@ -50,22 +69,17 @@ DROP TABLE IF EXISTS `treminder`;
 
 CREATE TABLE `treminder` (
   `rid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `patient_id` int(11) unsigned DEFAULT NULL,
-  `doctor_id` int(11) unsigned DEFAULT NULL,
-  `priority` int(11) DEFAULT NULL,
+  `dpid` int(10) unsigned DEFAULT NULL,
   `desc` text,
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `priority` enum('HIGH','MIDDLE','LOW') DEFAULT NULL,
   `status` tinyint(1) DEFAULT '0' COMMENT '0=unread 1=read',
   PRIMARY KEY (`rid`),
-  KEY `patientId` (`patient_id`),
-  KEY `doctorId` (`doctor_id`),
-  CONSTRAINT `treminder_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `tpatient` (`patient_id`),
-  CONSTRAINT `treminder_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `tdoctor` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  KEY `dpid` (`dpid`),
+  CONSTRAINT `treminder_ibfk_1` FOREIGN KEY (`dpid`) REFERENCES `tdoctorpatient` (`dpid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `treminder` */
-
-insert  into `treminder`(`rid`,`patient_id`,`doctor_id`,`priority`,`desc`,`created_time`,`status`) values (1,1,1,0,'Test gan','2020-07-14 23:27:46',0),(2,2,1,0,'Test lagi gan','2020-07-14 23:28:14',0),(3,3,2,1,'Test ketiga gan','2020-07-14 23:28:47',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
