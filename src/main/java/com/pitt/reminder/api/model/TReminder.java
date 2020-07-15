@@ -16,6 +16,7 @@ public class TReminder {
 	@Id
 	@GeneratedValue
 	private int rid;
+	private String title;
 	private String desc;
 	private Date createdTime;
 	private String priority;
@@ -29,6 +30,14 @@ public class TReminder {
 		this.rid = rid;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getDesc() {
 		return desc;
 	}
