@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TDOCTOR")
+@Table(name = "tdoctor")
 public class TDoctor {
 
 	@Id
@@ -27,16 +27,16 @@ public class TDoctor {
 		this.doctorId = doctorId;
 	}
 	
-	public String getName() {
+	public String getDoctorName() {
 		return doctorName;
 	}
 	
-	public void setName(String name) {
+	public void setDoctorName(String name) {
 		this.doctorName = name;
 	}
 	
 	@OneToMany(mappedBy = "doctor")
-	Set<TDoctorPatient> mapping;
+	Set<TMapping> mapping;
 	
 	
 }

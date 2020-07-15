@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TPATIENT")
+@Table(name = "tpatient")
 public class TPatient {
 
 	@Id
@@ -38,6 +38,6 @@ public class TPatient {
 
 
 	@OneToMany(mappedBy = "patient")
-	Set<TDoctorPatient> mapping;
+	Set<TMapping> mapping;
 
 }

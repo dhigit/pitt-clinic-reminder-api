@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 10.1.31-MariaDB : Database - reservation
+SQLyog Ultimate v13.1.1 (64 bit)
+MySQL - 10.4.6-MariaDB : Database - reservation
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -28,26 +28,32 @@ CREATE TABLE `tdoctor` (
 
 /*Data for the table `tdoctor` */
 
-insert  into `tdoctor`(`doctor_id`,`doctor_name`) values (1,'adi'),(2,'budi'),(3,'caca');
+insert  into `tdoctor`(`doctor_id`,`doctor_name`) values 
+(1,'adi'),
+(2,'budi'),
+(3,'caca');
 
-/*Table structure for table `tdoctorpatient` */
+/*Table structure for table `tmapping` */
 
-DROP TABLE IF EXISTS `tdoctorpatient`;
+DROP TABLE IF EXISTS `tmapping`;
 
-CREATE TABLE `tdoctorpatient` (
-  `dpid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tmapping` (
+  `mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) unsigned DEFAULT NULL,
   `doctor_id` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`dpid`),
+  PRIMARY KEY (`mid`),
   KEY `patientId` (`patient_id`),
   KEY `doctorId` (`doctor_id`),
-  CONSTRAINT `tdoctorpatient_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `tpatient` (`patient_id`),
-  CONSTRAINT `tdoctorpatient_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `tdoctor` (`doctor_id`)
+  CONSTRAINT `tmapping_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `tpatient` (`patient_id`),
+  CONSTRAINT `tmapping_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `tdoctor` (`doctor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-/*Data for the table `tdoctorpatient` */
+/*Data for the table `tmapping` */
 
-insert  into `tdoctorpatient`(`dpid`,`patient_id`,`doctor_id`) values (1,1,1),(2,2,1),(3,3,2);
+insert  into `tmapping`(`mid`,`patient_id`,`doctor_id`) values 
+(1,1,1),
+(2,2,1),
+(3,2,2);
 
 /*Table structure for table `tpatient` */
 
@@ -61,7 +67,10 @@ CREATE TABLE `tpatient` (
 
 /*Data for the table `tpatient` */
 
-insert  into `tpatient`(`patient_id`,`patient_name`) values (1,'danu'),(2,'eka'),(3,'fajar');
+insert  into `tpatient`(`patient_id`,`patient_name`) values 
+(1,'danu'),
+(2,'eka'),
+(3,'fajar');
 
 /*Table structure for table `treminder` */
 
@@ -69,17 +78,21 @@ DROP TABLE IF EXISTS `treminder`;
 
 CREATE TABLE `treminder` (
   `rid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `dpid` int(10) unsigned DEFAULT NULL,
-  `desc` text,
-  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mid` int(10) unsigned DEFAULT NULL,
+  `desc` text DEFAULT NULL,
+  `created_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `priority` enum('HIGH','MIDDLE','LOW') DEFAULT NULL,
-  `status` tinyint(1) DEFAULT '0' COMMENT '0=unread 1=read',
+  `status` tinyint(1) DEFAULT 0 COMMENT '0=unread 1=read',
   PRIMARY KEY (`rid`),
-  KEY `dpid` (`dpid`),
-  CONSTRAINT `treminder_ibfk_1` FOREIGN KEY (`dpid`) REFERENCES `tdoctorpatient` (`dpid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `dpid` (`mid`),
+  CONSTRAINT `treminder_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `tmapping` (`mid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `treminder` */
+
+insert  into `treminder`(`rid`,`mid`,`desc`,`created_time`,`priority`,`status`) values 
+(1,1,'Test reminder gan','2020-07-15 13:14:56','MIDDLE',0),
+(2,2,'Dokter 1 reminder','2020-07-15 14:03:26','HIGH',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
