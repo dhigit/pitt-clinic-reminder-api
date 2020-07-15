@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.pitt.reminder.api.model.TMapping;
 import com.pitt.reminder.api.model.TReminder;
@@ -18,6 +19,7 @@ import com.pitt.reminder.api.repo.ReminderRepo;
 
 @RestController
 @ResponseBody
+@CrossOrigin(origins = "*")
 public class ApiController {
 
 	@Autowired
