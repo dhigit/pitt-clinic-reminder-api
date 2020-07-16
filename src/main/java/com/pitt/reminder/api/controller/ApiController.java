@@ -38,7 +38,7 @@ public class ApiController {
 		return mappingRepo.findById(dpid);
 	}
 	
-	@GetMapping("/api/doctor-patients/{did}")
+	@GetMapping("/api/mapping/bydoctor/{did}")
 	public List<TMapping> getMappingByDoctorId(@PathVariable("did") int doctorId){
 		return mappingRepo.findByDoctor_DoctorId(doctorId);
 	}

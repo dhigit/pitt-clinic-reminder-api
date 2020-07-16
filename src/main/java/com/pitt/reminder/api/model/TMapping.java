@@ -19,7 +19,36 @@ public class TMapping {
 	@GeneratedValue
 	private int mid;
 	
+	private int unfinishedHigh;
+	private int unfinishedMiddle;
+	private int unfinishedLow;
 	
+	
+	
+	public int getUnfinishedHigh() {
+		return unfinishedHigh;
+	}
+
+	public void setUnfinishedHigh(int unfinishedHigh) {
+		this.unfinishedHigh = unfinishedHigh;
+	}
+
+	public int getUnfinishedMiddle() {
+		return unfinishedMiddle;
+	}
+
+	public void setUnfinishedMiddle(int unfinishedMiddle) {
+		this.unfinishedMiddle = unfinishedMiddle;
+	}
+
+	public int getUnfinishedLow() {
+		return unfinishedLow;
+	}
+
+	public void setUnfinishedLow(int unfinishedLow) {
+		this.unfinishedLow = unfinishedLow;
+	}
+
 	public int getMid() {
 		return mid;
 	}
