@@ -10,4 +10,6 @@ public interface MappingRepo extends JpaRepository<TMapping, Integer>{
 	
 	List<TMapping> findByDoctor_DoctorId(int doctorId);
 	
+	List<TMapping> findByDoctor_DoctorIdOrderByUnfinishedHighDescUnfinishedMiddleDescUnfinishedLowDesc(int doctorId);
+	
 }
