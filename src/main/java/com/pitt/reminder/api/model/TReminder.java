@@ -18,10 +18,19 @@ public class TReminder {
 	private int rid;
 	private String title;
 	private String desc;
+	private int duration;
 	private Date createdTime;
 	private String priority;
 	private boolean status;
 	
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
 	public int getRid() {
 		return rid;
 	}
