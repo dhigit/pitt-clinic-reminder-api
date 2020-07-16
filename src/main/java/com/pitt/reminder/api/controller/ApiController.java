@@ -7,10 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import com.pitt.reminder.api.model.TMapping;
 import com.pitt.reminder.api.model.TReminder;
 import com.pitt.reminder.api.repo.MappingRepo;
@@ -62,4 +64,10 @@ public class ApiController {
 	public List<TReminder> getRemindersByPatientId(@PathVariable("patientId") int patientId){
 		return reminderRepo.findByMapping_Patient_PatientId(patientId);
 	}
+	
+	@PutMapping("/api/reminders/done/{rid}")
+	public void updateStatus(@PathVariable("rid") int rid) {
+		reminderRepo.setStatus(rid);
+	}
+	
 }

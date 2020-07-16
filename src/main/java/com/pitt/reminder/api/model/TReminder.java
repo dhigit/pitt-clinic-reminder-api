@@ -1,6 +1,6 @@
 package com.pitt.reminder.api.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,9 +17,12 @@ public class TReminder {
 	@GeneratedValue
 	private int rid;
 	private String title;
+	
 	private String desc;
 	private int duration;
-	private Date createdTime;
+	
+	private Timestamp createdTime;
+	
 	private String priority;
 	private boolean status;
 	
@@ -55,11 +58,11 @@ public class TReminder {
 		this.desc = desc;
 	}
 	
-	public Date getCreatedTime() {
+	public Timestamp getCreatedTime() {
 		return createdTime;
 	}
 	
-	public void setCreatedTime(Date createdTime) {
+	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
 	}
 	
