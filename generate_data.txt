@@ -1,0 +1,71 @@
+import pymysql
+
+def savePatient(patient_id, name):
+    
+    sql = """
+        insert into tpatient (patient_id, patient_name) values ({patient_id}, '{name}')
+    """.format(
+        name = name,
+        patient_id = patient_id
+    )
+    
+    con = pymysql.connect(
+        'localhost', 
+        'root',
+        '', 
+        'reservation')
+
+    with con:
+
+        cur = con.cursor()
+        cur.execute(sql)
+        
+
+def saveDoctor(doctor_id, name):
+    
+    sql = """
+        insert into tdoctor (doctor_id, doctor_name) values ({doctor_id}, '{name}')
+    """.format(
+        name = name,
+        doctor_id = doctor_id
+    )
+    
+    con = pymysql.connect(
+        'localhost', 
+        'root',
+        '', 
+        'reservation')
+
+    with con:
+
+        cur = con.cursor()
+        cur.execute(sql)
+        
+def saveMapping(doctor_id, patient_id):
+    
+    sql = """
+        insert into tmapping (doctor_id, patient_id) values ({doctor_id}, {patient_id})
+    """.format(
+        doctor_id = doctor_id,
+        patient_id = patient_id
+    )
+    
+    con = pymysql.connect(
+        'localhost', 
+        'root',
+        '', 
+        'reservation')
+
+    with con:
+
+        cur = con.cursor()
+        cur.execute(sql)
+		
+
+for i in range(1,501):
+    d_id = i
+    saveDoctor(d_id, "Doctor " + str(d_id))
+    for j in range(1,41):
+        p_id = (d_id*1000)+j
+        savePatient(p_id, "Patient " + str(p_id))
+        saveMapping(d_id, p_id)
