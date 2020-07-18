@@ -1,6 +1,7 @@
 package com.pitt.reminder.api.model;
 
 import java.sql.Timestamp;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -82,6 +83,12 @@ public class TReminder {
 		this.status = status;
 	}
 
+	public boolean isOverdue() {
+
+		Long overdueTime = this.getCreatedTime().getTime() + TimeUnit.HOURS.toMillis(this.getDuration());
+		return (System.currentTimeMillis() > overdueTime);
+		
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "mid")

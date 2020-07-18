@@ -71,8 +71,10 @@ public class ApiController {
 	}
 	
 	@PutMapping("/api/reminders/done/{rid}")
-	public void updateStatus(@PathVariable("rid") int rid) {
+	public Optional<TReminder> updateStatus(@PathVariable("rid") int rid) {
+		System.out.println(rid);
 		reminderRepo.setStatus(rid);
+		return getRemidersById(rid);
 	}
 	
 }
