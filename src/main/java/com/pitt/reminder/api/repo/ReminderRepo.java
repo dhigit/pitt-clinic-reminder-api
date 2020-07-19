@@ -16,8 +16,6 @@ public interface ReminderRepo extends JpaRepository<TReminder, Integer>{
 	
 	List<TReminder> findByMapping_Patient_PatientId(int patientId);
 	
-	List<TReminder> findByMapping_Patient_PatientIdOrderByStatusAsc(int patientId);
-	
 	List<TReminder> findByMapping_Mid(int mid);
 	
 	@Transactional

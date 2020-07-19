@@ -89,6 +89,12 @@ public class TReminder {
 		return (System.currentTimeMillis() > overdueTime);
 		
 	}
+	
+	public int getOverallStatus() {
+		if (isStatus()) return 1;
+		if (isOverdue()) return 2;
+		return 0;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "mid")

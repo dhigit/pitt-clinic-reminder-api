@@ -1,6 +1,8 @@
 package com.pitt.reminder.api.controller;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,12 +64,17 @@ public class ApiController {
 	
 	@GetMapping("/api/reminders/patient/{patientId}")
 	public List<TReminder> getRemindersByPatientId(@PathVariable("patientId") int patientId){
-		return reminderRepo.findByMapping_Patient_PatientId(patientId);
+		List<TReminder> results = reminderRepo.findByMapping_Patient_PatientId(patientId);
+		Collections.sort(results, compareByOverallStatus);
+		return results;
+		//return reminderRepo.findByMapping_Patient_PatientIdOrderByOverdueAscStatusAscCreatedTimeAsc(patientId);
 	}
 	
 	@GetMapping("/api/reminders/bymapping/{mid}")
 	public List<TReminder> getRemindersByMappingId(@PathVariable("mid") int mid){
-		return reminderRepo.findByMapping_Mid(mid);
+		List<TReminder> results = reminderRepo.findByMapping_Mid(mid);
+		Collections.sort(results, compareByOverallStatus);
+		return results;
 	}
 	
 	@PutMapping("/api/reminders/done/{rid}")
@@ -76,5 +83,15 @@ public class ApiController {
 		reminderRepo.setStatus(rid);
 		return getRemidersById(rid);
 	}
+	
+	
+	/* comparator */
+	Comparator<TReminder> compareByOverallStatus = new Comparator<TReminder>() {
+		@Override
+		public int compare(TReminder a, TReminder b) {
+			return a.getOverallStatus() > b.getOverallStatus() ? 1 : -1;
+		}
+	};
+	
 	
 }
