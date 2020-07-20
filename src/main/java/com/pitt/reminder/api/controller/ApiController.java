@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,8 +89,9 @@ public class ApiController {
 	}
 	
 	@PostMapping("/api/reminder")
-	public void saveRemider(@RequestBody TReminder entity){
+	public String saveRemider(@RequestBody TReminder entity){
 		reminderRepo.save(entity);
+		return "{\"status\": \"OK\"}";
 	}
 	
 	
