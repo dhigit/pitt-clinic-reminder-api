@@ -3,8 +3,10 @@ package com.pitt.reminder.api.model;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,13 +17,16 @@ import javax.persistence.Table;
 public class TReminder {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int rid;
 	private String title;
 	
+	@Column(name = "description")
 	private String desc;
+	
 	private int duration;
 	
+	@Column(name = "created_time", columnDefinition = "TIMESTAMP")
 	private Timestamp createdTime;
 	
 	private String priority;
@@ -104,6 +109,10 @@ public class TReminder {
 		return mapping.getMid();
 	}
 	
+	public void setMid(int mid) {
+		this.mapping.setMid(mid);
+	}
+	
 	public int getPatientId() {
 		return mapping.getPatientId();
 	}
@@ -111,4 +120,10 @@ public class TReminder {
 	public int getDoctorId() {
 		return mapping.getDoctorId();
 	}
+
+	public void setMapping(TMapping mapping) {
+		this.mapping = mapping;
+	}
+	
+	
 }
