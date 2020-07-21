@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.security.RolesAllowed;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.pitt.reminder.api.model.TAuth;
 import com.pitt.reminder.api.model.TMapping;
 import com.pitt.reminder.api.model.TReminder;
+import com.pitt.reminder.api.repo.AuthRepo;
 import com.pitt.reminder.api.repo.MappingRepo;
 import com.pitt.reminder.api.repo.ReminderRepo;
 
@@ -34,6 +34,9 @@ public class ApiController {
 	
 	@Autowired
 	ReminderRepo reminderRepo;
+	
+	@Autowired
+	AuthRepo authRepo;
 	
 	@GetMapping("/api/mapping")
 	public List<TMapping> getMapping() {
@@ -94,6 +97,21 @@ public class ApiController {
 		return "{\"status\": \"OK\"}";
 	}
 	
+	@PostMapping("/api/auth/login")
+	public String authUser(@RequestBody TAuth loginInfo) {
+		
+		TAuth auth = authRepo.findByUsername(loginInfo.getUsername());
+		
+		if (auth != null) {
+			if (auth.getPassword().equals(loginInfo.getPassword())) {
+				return "{\"status\" : \"AUTHORIZED\", \"ID\" : "+auth.getRev_id()+", \"role\": \""+auth.getRole()+"\"}";
+			}else {
+				return "{\"status\" : \"UNAUTHORIZED\"}";
+			}
+		}
+		
+		return "{\"status\" : \"UNAUTHORIZED\"}";
+	}
 	
 	/* comparator */
 	Comparator<TReminder> compareByOverallStatus = new Comparator<TReminder>() {
