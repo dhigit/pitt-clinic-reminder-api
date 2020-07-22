@@ -117,7 +117,13 @@ public class ApiController {
 	Comparator<TReminder> compareByOverallStatus = new Comparator<TReminder>() {
 		@Override
 		public int compare(TReminder a, TReminder b) {
-			return a.getOverallStatus() > b.getOverallStatus() ? 1 : -1;
+			if (a.getOverallStatus() > b.getOverallStatus())
+				return 1;
+			else if (a.getOverallStatus() < b.getOverallStatus())
+				return -1;
+			else
+				return 0;
+			//return a.getOverallStatus() > b.getOverallStatus() ? 1 : -1;
 		}
 	};
 	
